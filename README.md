@@ -1,6 +1,10 @@
 # Marketing-Blockchain
 
-This healthcare project showcases 6 functionalities, beginning with connecting to MetaMask.
+This Marketing project showcases 6 functionalities, beginning with connecting to MetaMask.
+
+We deploy the Application on cloud on below URL:
+
+https://marketing-dapp.herokuapp.com/?#portfolio-record
 
 1.) Click the connect to meta mask button to connect us to meta mask.
 
@@ -17,7 +21,7 @@ This healthcare project showcases 6 functionalities, beginning with connecting t
 7.) Click on Add PortFolio Record. This will pop up the meta mask wallet. Confirm the transaction and deploy the contract.
 Below popup will get.
 
-8.) Click on ìView PortFolio recordî and fill in the necessary details.
+8.) Click on ‚ÄúView PortFolio record‚Äù and fill in the necessary details.
 
 9.)Below details are retrieved.
 
