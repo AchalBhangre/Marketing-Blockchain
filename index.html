@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Marketing PortFolio Smart Contract</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Add Web3 Script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.9.0/web3.min.js" integrity="sha512-mUvdtCaVKd9dby/UnYGKMLkP3eT7EA6QNFN5iSEjvMf8TFPq2oZFIemWL46iypQcL8xYNdx7wQIA1oYnTXuYhg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-image: url('/Users/achalbhangre/Documents/BLOCKCHAIN STUFF/Marketing-Blockchain/MarkettingSmall.jpeg');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            
+/* Header styling */
+/* Header styling */
+header {
+    display: inline-block;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a39898;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+    flex: 1;
+}
+
+header button {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #0d0d0d;
+    color: rgb(232, 223, 223);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 40px;
+    width: 200px;
+}
+
+header button:first-child {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+
+
+            
+            /* Form styling */
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                margin-top: 20px;
+            }
+            
+            label {
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            
+            input {
+                padding: 10px;
+                border: 1px solid rgb(79, 73, 9);
+                border-radius: 5px;
+                margin-bottom: 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            button {
+                padding: 10px;
+                background-color: #40454d;
+                color: rgb(238, 229, 229);
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+            }
+            
+            button:hover {
+                opacity: 0.8;
+            }
+            
+            /* Forms visibility */
+            #add-portfolio-record-form, #make-payment-form, #register-portfolio-form, #view-portfolio-record-form {
+                display: none;
+            }
+
+            #disconnect-metamask {
+                display: none;
+            }
+
+            #add-portfolio-record-btn, #make-payment-btn, #register-portfolio-btn, #view-portfolio-record-btn {
+                display: none;
+            }
+
+            #portfolio-record-display {
+                white-space: pre-line;
+                color: rgb(71, 89, 148);
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>PortFolio Smart Contract</h1>
+            <button id="connect-metamask">Connect to Metamask</button>
+            <button id="disconnect-metamask">Disconnect from Metamask</button>
+            <button id="register-portfolio-btn">Register for Portfolio</button>
+            <button id="add-portfolio-record-btn">Add PortFolio <Details></Details></button>
+            <button id="view-portfolio-record-btn">View PortFolio Record</button>
+            <button id="make-payment-btn">Make Payment</button>
+        </header>
+        
+        <main>
+            <h2 id="userArea"></h2>
+            <!-- Register portfolio Form -->
+            <div id="register-portfolio-form">
+                <h2 text-align: left>Register for Marketing PortFolio</h2>
+                <form>
+                    <label for="portfolio-name">Portfolio Idea:</label>
+                    <input type="text" text-align="left" id="portfolio-name" placeholder="Enter  Name...">
+                    
+                    <label for="portfolio-id">Portfolio Token ID:</label>
+                    <input type="text" id="portfolio-id" placeholder="Enter  Token Id...">
+
+                    <label for="portfolio-specialty">Portfolio Area Specialty:</label>
+                    <input type="text" id="portfolio-specialty" placeholder="Enter  specialty..."> 
+                    
+                    <button id="register-portfolio">Register for Portfolio </button>
+                </form>
+            </div>
+            <!-- Add portfolio Record Form -->
+            <div id="add-portfolio-record-form">
+                <h2>Add Portfolio Records </h2>
+                <form>
+                    <label for="portfolioRecord-name">PortFolio Name:</label>
+                    <input type="text" id="portfolioRecord-name" placeholder="Enter Portfolio name...">
+                    
+                    <label for="portfolio-record-id">PortFolio Record ID:</label>
+                    <input type="number" id="portfolio-record-id" placeholder="Enter Portfolio ID...">
+
+                    <label for="portfolio-address">PortfFolio Address:</label>
+                    <input type="text" id="portfolio-address" placeholder="Enter Portfolio Wallet Address...">
+                    
+                    <label for="portfolio-ownerName">PortFolio Owner Name:</label>
+                    <input type="text" id="portfolio-ownerName" placeholder="Enter Portfolio Owner Name...">
+                    
+                    <label for="portfolio-budget">PortFolio Budget :</label>
+                    <input type="number" id="portfolio-budget" placeholder="Enter Portfolio Budget..in $">
+                    
+                    <button id="add-portfolio-record">Add PortFolio Record</button>
+                </form>
+            </div>
+            <!-- View portfolio Record Form -->
+            <div id="view-portfolio-record-form">
+                <h2>View PortFolio Record</h2>
+                <form>
+                    <label for="portfolio-record-number">Portfolio Record ID:</label>
+                    <input type="text" id="portfolio-record-number" placeholder="Enter Portfolio Record ID...">
+                    <label for="portfolio-record-address">Portfolio Location:</label>
+                    <input type="text" id="portfolio-record-address" placeholder="Enter Portfolio Wallet Address...">
+                    
+                    <button id="view-portfolio-record">View Portfolio Record</button>
+                    
+                    <!--Display portfolio Record -->
+                    <div id="portfolio-record-display">
+                    <h2><label for="portfolio-record">Portfolio Record:</label></h2>
+                    <label for ="get-portfolioRecord-name">Portfolio Name:</label>
+                    <textarea id="get-portfolioRecord-name" rows="1" cols="50" placeholder="portfolio Name" readonly></textarea>
+                    <label for ="get-portfolio-ownerName">Portfolio Owner Name:</label>
+                    <textarea id="get-portfolio-ownerName" rows="1" cols="50" placeholder="Portfolio Owner Name" readonly></textarea>
+                    <label for ="get-portfolio-budget">Portfolio Budget:</label>
+                    <textarea id="get-portfolio-budget" rows="1" cols="50" placeholder="Portfolio Budget" readonly></textarea>
+                    </div>
+                </form>
+            </div>
+            <!-- Make Payment Form -->
+            <div id="make-payment-form">
+                <h2>Make Payment</h2>
+                <form>
+                    <label for="portfolio-record-id">Portfolio ID:</label>
+                    <input type="text" id="portfolio-record-id" placeholder="Enter portfolio ID...">
+                    
+                    <label for="amount">Budget:</label>
+                    <input type="text" id="amount" placeholder="Enter portfolio budget...">
+                    
+                    <button id="make-payment">Make Payment</button>
+                </form>
+            </div>
+        </main>
+        
+        <script>
+            const addPortFolioRecordBtn = document.getElementById('add-portfolio-record-btn');
+            const makePaymentBtn = document.getElementById('make-payment-btn');
+            const disconnectMetamaskBtn = document.getElementById('disconnect-metamask');
+            const registerPortFolioBtn = document.getElementById('register-portfolio-btn');
+            const viewPortFolioRecordBtn = document.getElementById('view-portfolio-record-btn');
+            const addPortFolioRecordForm = document.getElementById('add-portfolio-record-form');
+            const makePaymentForm = document.getElementById('make-payment-form');
+            const registerPortFolioForm = document.getElementById('register-portfolio-form');
+            const viewPortFolioRecordForm = document.getElementById('view-portfolio-record-form');
+            const portfolioRecordDisplay = document.getElementById('portfolio-record-display');
+
+            ///////////////////////////////// FORMS VISIBILITY /////////////////////////////////
+            
+            addPortFolioRecordBtn.addEventListener('click', () => {
+                addPortFolioRecordForm.style.display = 'block';
+                makePaymentForm.style.display = 'none';
+                registerPortFolioForm.style.display = 'none';
+                viewPortFolioRecordForm.style.display = 'none';
+            });
+
+            makePaymentBtn.addEventListener('click', () => {
+                makePaymentForm.style.display = 'block';
+                addPortFolioRecordForm.style.display = 'none';
+                registerPortFolioForm.style.display = 'none';
+                viewPortFolioRecordForm.style.display = 'none';
+            });
+
+            registerPortFolioBtn.addEventListener('click', () => {
+                registerPortFolioForm.style.display = 'block';
+                addPortFolioRecordForm.style.display = 'none';
+                makePaymentForm.style.display = 'none';
+                viewPortFolioRecordForm.style.display = 'none';
+            });
+
+            viewPortFolioRecordBtn.addEventListener('click', () => {
+                viewPortFolioRecordForm.style.display = 'block';
+                addPortFolioRecordForm.style.display = 'none';
+                makePaymentForm.style.display = 'none';
+                registerPortFolioForm.style.display = 'none';
+            });
+            ///////////////////////////////// METAMASK /////////////////////////////////
+            // Connect to Metamask
+            const connectMetamaskBtn = document.getElementById('connect-metamask');
+            
+            if (connectMetamaskBtn.innerHTML == 'Connect to Metamask'){
+                connectMetamaskBtn.addEventListener('click', async () => {
+                    // Check if Metamask is installed
+                    if (typeof window.ethereum !== 'undefined') {
+                        const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                    account = accounts[0];
+                    document.getElementById("userArea").innerHTML = `User Account: ${account}`;
+                    // hide connect to Metamask button
+                    connectMetamaskBtn.style.display = 'none';
+                    // show disconnect from Metamask button
+                    disconnectMetamaskBtn.style.display = 'block';
+                    // show add portfolio record button
+                    addPortFolioRecordBtn.style.display = 'block';
+                    // show make payment button
+                    makePaymentBtn.style.display = 'block';
+                    // show register portfolio button
+                    registerPortFolioBtn.style.display = 'block';
+                    // show view portfolio record button
+                    viewPortFolioRecordBtn.style.display = 'block';
+                    } else {
+                        alert('Please install Metamask!');
+                    }
+                });
+            }
+
+            // Disconnect from Metamask
+            disconnectMetamaskBtn.addEventListener('click', () => {
+                // hide disconnect from Metamask button
+                disconnectMetamaskBtn.style.display = 'none';
+                // show connect to Metamask button
+                connectMetamaskBtn.style.display = 'block';
+                // hide add portfolio record button
+                addPortFolioRecordBtn.style.display = 'none';
+                // hide make payment button
+                makePaymentBtn.style.display = 'none';
+                // hide add portfolio record form
+                addPortFolioRecordForm.style.display = 'none';
+                // hide make payment form
+                makePaymentForm.style.display = 'none';
+                // hide register portfolio form
+                registerPortFolioForm.style.display = 'none';
+
+                // hide view portfolio record form
+
+                viewPortFolioRecordForm.style.display = 'none';
+            });
+
+            ///////////////////////////////// REGISTER portfolio /////////////////////////////////
+
+            // Register portfolio
+
+            const registerPortFolio = document.getElementById('register-portfolio'); 
+
+            registerPortFolio.addEventListener('click', async () => {
+                const portfolioName = document.getElementById('portfolio-name').value;
+                const portfolioId = document.getElementById('portfolio-id').value;
+                const portfolioSpecialty = document.getElementById('portfolio-specialty').value;
+                console.log(portfolioName, portfolioId, portfolioSpecialty);
+                await connectContract();
+
+                // get the account from user area
+                const account = document.getElementById('userArea').innerHTML.split(' ')[2];
+                console.log(account);
+
+                await contract.methods.registerPortFolio(portfolioId, portfolioName, portfolioSpecialty).send({from: account});
+            });
+
+            ///////////////////////////////// ADD portfolio RECORD /////////////////////////////////
+            // Add portfolio Record
+            const addPortFolioRecord = document.getElementById('add-portfolio-record');
+
+            const connectContract = async () => {
+            const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_PortFolioRecordId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "portfolioAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_portfolioName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_ownerName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_budget",
+				"type": "string"
+			}
+		],
+		"name": "addPortFolioRecord",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_portfolioAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_portfolioId",
+				"type": "uint256"
+			}
+		],
+		"name": "getPortFolioRecord",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "makePayment",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "portFolioDetails",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "speciality",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "portfolios",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "isPaid",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_id",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_speciality",
+				"type": "string"
+			}
+		],
+		"name": "registerPortFolio",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]; // Taking ABI from Remix
+            const Address = "0x104F13c4182a3901eE410B78bE4bAb468Daa14ee"; // Taking Address from Remix 
+            window.web3 = await new Web3(window.ethereum);
+            window.contract = await new window.web3.eth.Contract(ABI, Address);
+        }
+            
+            addPortFolioRecord.addEventListener('click', async () => {
+                const portfolioName = document.getElementById('portfolioRecord-name').value;
+                const portfolioAddress = document.getElementById('portfolio-address').value;
+                const portfolioRecordId = document.getElementById('portfolio-record-id').value;
+                const ownerName = document.getElementById('portfolio-ownerName').value;
+                const budget = document.getElementById('portfolio-budget').value;
+                
+                await connectContract();
+
+                // get the account from user area
+                const account = document.getElementById('userArea').innerHTML.split(' ')[2];
+                console.log(account);
+
+                await contract.methods.addPortFolioRecord(portfolioRecordId, portfolioAddress, portfolioName, ownerName, budget).send({from: account}).then((res) => {
+                    alert('portfolio Record Added');
+                });
+            });
+
+            ///////////////////////////////// MAKE PAYMENT /////////////////////////////////
+
+            // Make Payment
+
+            const makePayment = document.getElementById('make-payment');
+
+            makePayment.addEventListener('click', async () => {
+                const portfolioRecordId = document.getElementById('portfolio-record-id').value;
+                const amount = document.getElementById('amount').value;
+                
+                await connectContract();
+
+                // get the account from user area
+                const account = document.getElementById('userArea').innerHTML.split(' ')[2];
+                console.log(account);
+
+                await contract.methods.makePayment().send({from: account, value: web3.utils.toWei(amount, 'ether')}).then((res) => {
+                    alert('Payment Made');
+                });
+            });
+            
+            ///////////////////////////////// VIEW portfolio RECORD /////////////////////////////////
+
+            // View portfolio Record
+
+            const viewPortFolioRecord = document.getElementById('view-portfolio-record');
+
+            viewPortFolioRecord.addEventListener('click', async () => {
+                const portfolioRecordId = document.getElementById('portfolio-record-number').value;
+                const portfolioRecordAddress = document.getElementById('portfolio-record-address').value;
+                console.log(portfolioRecordId)
+                
+                await connectContract();
+
+                // get the account from user area
+                const account = document.getElementById('userArea').innerHTML.split(' ')[2];
+                console.log(account);
+
+                await contract.methods.getPortFolioRecord(portfolioRecordAddress, portfolioRecordId).call({from: account}).then((res) => {
+                    console.log(res);
+                    portfolioRecordDisplay.style.display = 'block';
+                    document.getElementById('get-portfolioRecord-name').value = res[0];
+                    document.getElementById('get-portfolio-ownerName').value = res[1];
+                    document.getElementById('get-portfolio-budget').value = res[2];
+                });
+            });
+
+        </script>
+    </body>
+</html>
