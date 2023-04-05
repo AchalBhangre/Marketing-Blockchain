@@ -13,7 +13,7 @@ Update Server.js
 
 Details of executing the application in detail are determine in Readme.md file
 For  localhost:-
-Step 1 : Open website http://localhost:5000/?#medical-record
+Step 1 : Open website hhttp://localhost:5555/?#portfolio-record
 Step 2: Make sure you are connected to website and have enough funds.
 Step 3: Register yourself as PortFolio Member
 Step 4: Wait for transaction to confirm
